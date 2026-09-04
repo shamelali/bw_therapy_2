@@ -54,9 +54,25 @@ Required variables:
 | `DATABASE_URL` | PostgreSQL connection string (e.g. `postgresql://postgres:postgres@127.0.0.1:5432/app_db`) |
 | `AUTH_SECRET` | Long random secret used to sign session tokens |
 
-### 3. Create the database
+### 3. Start the database
 
-Create an empty database (e.g. `app_db`) on your PostgreSQL server, then push the Drizzle schema:
+For quick local dev you can boot a local PostgreSQL with a single command. The script reuses an
+already-running Postgres if one is reachable at `DATABASE_URL`, otherwise it starts an **embedded
+PostgreSQL** cluster (stored in `.pgdata`) and creates the `app_db` database:
+
+```bash
+# run in its own terminal (or as a background process)
+npm run db:start
+
+# later, shut the embedded cluster down with:
+npm run db:stop
+```
+
+Alternatively, point `DATABASE_URL` at any existing Postgres and create the schema + seed yourself.
+
+### 4. Create the schema
+
+With the database running, push the Drizzle schema:
 
 ```bash
 npm run db:push
@@ -69,7 +85,7 @@ npm run db:generate
 npm run db:migrate
 ```
 
-### 4. Seed sample data
+### 5. Seed sample data
 
 ```bash
 npm run seed
@@ -81,7 +97,7 @@ This creates demo accounts:
 - Customer: `amelia@example.com` / `password123`
 - Provider: `harmony.wellness@example.com` / `password123`
 
-### 5. Run the app
+### 6. Run the app
 
 ```bash
 npm run dev
@@ -99,6 +115,11 @@ Open http://localhost:3000.
 | `npm run lint` | Run ESLint |
 | `npm run typecheck` | Type-check with `tsc --noEmit` |
 | `npm run seed` | Seed the database with demo data |
+| `npm run db:start` | Start (or reuse) a local/embedded PostgreSQL and create `app_db` |
+| `npm run db:stop` | Stop the embedded PostgreSQL cluster |
+| `npm run db:push` | Push the Drizzle schema to the database |
+| `npm run db:generate` | Generate a Drizzle migration |
+| `npm run db:migrate` | Apply Drizzle migrations |
 
 ## Database schema
 
