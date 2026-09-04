@@ -204,6 +204,18 @@ async function main() {
 
   const createdProviders: { provider: typeof providers.$inferSelect; services: (typeof services.$inferSelect)[] }[] = [];
 
+  // Local profile images bundled in /public (fall back to gradient if missing).
+  const providerImages: Record<string, string> = {
+    "Harmony Wellness Spa": "/images/providers/harmony.jpg",
+    "Elena Torres, LMT": "/images/providers/elena.jpg",
+    "Zenith Massage Therapy": "/images/providers/zenith.jpg",
+    "Pure Bliss Day Spa": "/images/providers/pure-bliss.jpg",
+    "Golden Hands Therapy": "/images/providers/golden-hands.jpg",
+    "Align Chiropractic Studio": "/images/providers/align.jpg",
+    "Revive Physiotherapy Clinic": "/images/providers/revive.jpg",
+    "Tranquil Roots Wellness Center": "/images/providers/tranquil-roots.jpg",
+  };
+
   for (const def of providerDefs) {
     const [owner] = await db
       .insert(users)
@@ -222,6 +234,7 @@ async function main() {
         address: def.address,
         phone: def.phone,
         email: def.ownerEmail,
+        imageUrl: providerImages[def.businessName] ?? null,
         priceFrom: String(def.priceFrom),
         rating: String(def.rating),
         reviewCount: 0,

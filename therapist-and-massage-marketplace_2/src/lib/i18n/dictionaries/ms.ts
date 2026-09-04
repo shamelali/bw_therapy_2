@@ -301,6 +301,8 @@ const ms: Dictionary = {
     toastBusinessCreated: "Profil perniagaan dicipta",
     toastBusinessCreateError: "Tidak dapat mencipta profil perniagaan",
     toastRequiredFields: "Nama perniagaan dan bandar diperlukan",
+    fieldImageUrl: "URL imej profil",
+    fieldImagePlaceholder: "https://contoh.com/foto.jpg (pilihan)",
   },
   adminProvidersPage: {
     title: "Penyedia",

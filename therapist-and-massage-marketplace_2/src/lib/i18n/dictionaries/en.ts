@@ -299,6 +299,8 @@ const en = {
     toastBusinessCreated: "Business profile created",
     toastBusinessCreateError: "Unable to create business profile",
     toastRequiredFields: "Business name and city are required",
+    fieldImageUrl: "Profile image URL",
+    fieldImagePlaceholder: "https://example.com/photo.jpg (optional)",
   },
   adminProvidersPage: {
     title: "Providers",

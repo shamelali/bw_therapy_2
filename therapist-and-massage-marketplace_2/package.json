@@ -12,7 +12,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:start": "node scripts/db.mjs start",
-    "db:stop": "node scripts/db.mjs stop"
+    "db:stop": "node scripts/db.mjs stop",
+    "preview": "bash scripts/start-app.sh"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
