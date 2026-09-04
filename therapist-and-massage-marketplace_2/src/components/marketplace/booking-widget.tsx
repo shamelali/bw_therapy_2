@@ -36,18 +36,28 @@ export function BookingWidget({
   const [serviceId, setServiceId] = useState(activeServices[0]?.id ?? "");
   const [date, setDate] = useState(todayStr());
   const [slots, setSlots] = useState<string[]>([]);
-  const [loadingSlots, setLoadingSlots] = useState(false);
+  const [loadingSlots, setLoadingSlots] = useState(true);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const selectedService = activeServices.find((s) => s.id === serviceId);
 
+  function handleServiceChange(value: string) {
+    setServiceId(value);
+    setSelectedSlot(null);
+    setLoadingSlots(true);
+  }
+
+  function handleDateChange(value: string) {
+    setDate(value);
+    setSelectedSlot(null);
+    setLoadingSlots(true);
+  }
+
   useEffect(() => {
     if (!serviceId || !date) return;
     let cancelled = false;
-    setLoadingSlots(true);
-    setSelectedSlot(null);
     fetch(`/api/providers/${providerId}/slots?date=${date}&serviceId=${serviceId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -109,7 +119,7 @@ export function BookingWidget({
       <div className="mt-4 space-y-4">
         <div>
           <Label>{dict.providerDetail.service}</Label>
-          <Select value={serviceId} onChange={(e) => setServiceId(e.target.value)}>
+          <Select value={serviceId} onChange={(e) => handleServiceChange(e.target.value)}>
             {activeServices.map((s) => (
               <option key={s.id} value={s.id}>
                 {s.name} — {formatCurrency(s.price)} ({formatDuration(s.durationMinutes)})
@@ -127,7 +137,7 @@ export function BookingWidget({
               min={todayStr()}
               max={maxDateStr()}
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => handleDateChange(e.target.value)}
               className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10"
             />
           </div>
