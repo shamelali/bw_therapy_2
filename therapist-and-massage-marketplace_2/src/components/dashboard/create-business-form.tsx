@@ -16,6 +16,7 @@ export function CreateBusinessForm() {
     city: "",
     tagline: "",
     description: "",
+    imageUrl: "",
   });
   const [saving, setSaving] = useState(false);
 
@@ -69,6 +70,15 @@ export function CreateBusinessForm() {
       <div>
         <Label>{dict.profilePage.fieldDescription}</Label>
         <Textarea rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+      </div>
+      <div>
+        <Label>{dict.profilePage.fieldImageUrl}</Label>
+        <Input
+          type="url"
+          value={form.imageUrl}
+          onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+          placeholder={dict.profilePage.fieldImagePlaceholder}
+        />
       </div>
       <Button loading={saving} onClick={save}>
         {dict.profilePage.createBusinessButton}

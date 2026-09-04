@@ -35,7 +35,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ locale
         <h1 className="text-2xl font-bold text-slate-900">{dict.profilePage.personalTitle}</h1>
         <p className="text-sm text-slate-500">{dict.profilePage.personalSubtitle}</p>
       </div>
-      <AccountForm name={user.name} email={user.email} phone={user.phone} />
+      <AccountForm name={user.name} email={user.email} phone={user.phone} avatarUrl={user.avatarUrl} />
     </div>
   );
 }

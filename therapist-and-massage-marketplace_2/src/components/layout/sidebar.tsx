@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -57,7 +58,34 @@ function stripLocale(pathname: string, locale: Locale) {
   return pathname;
 }
 
-export function SidebarContent({ role, name, locale, dict }: { role: string; name: string; locale: Locale; dict: Dictionary }) {
+function UserAvatar({ name, avatarUrl }: { name: string; avatarUrl?: string | null }) {
+  if (avatarUrl) {
+    return (
+      <span className="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full bg-slate-200">
+        <Image src={avatarUrl} alt={name} fill sizes="32px" className="object-cover" unoptimized />
+      </span>
+    );
+  }
+  return (
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white">
+      {name.slice(0, 1).toUpperCase()}
+    </span>
+  );
+}
+
+export function SidebarContent({
+  role,
+  name,
+  avatarUrl,
+  locale,
+  dict,
+}: {
+  role: string;
+  name: string;
+  avatarUrl?: string | null;
+  locale: Locale;
+  dict: Dictionary;
+}) {
   const pathname = usePathname() || "/";
   const bare = stripLocale(pathname, locale);
   const items = buildNav(dict)[role] ?? buildNav(dict).customer;
@@ -94,9 +122,7 @@ export function SidebarContent({ role, name, locale, dict }: { role: string; nam
           <LanguageSwitcher locale={locale} />
         </div>
         <div className="mb-2 flex items-center gap-2.5 rounded-lg bg-slate-50 px-3 py-2.5">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white">
-            {name.slice(0, 1).toUpperCase()}
-          </span>
+          <UserAvatar name={name} avatarUrl={avatarUrl} />
           <div className="min-w-0">
             <p className="truncate text-sm font-medium text-slate-800">{name}</p>
             <p className="truncate text-xs capitalize text-slate-400">{role}</p>
@@ -111,6 +137,7 @@ export function SidebarContent({ role, name, locale, dict }: { role: string; nam
 export function MobileSidebar({
   role,
   name,
+  avatarUrl,
   locale,
   dict,
   open,
@@ -118,6 +145,7 @@ export function MobileSidebar({
 }: {
   role: string;
   name: string;
+  avatarUrl?: string | null;
   locale: Locale;
   dict: Dictionary;
   open: boolean;
@@ -131,7 +159,7 @@ export function MobileSidebar({
         <button onClick={onClose} className="absolute right-3 top-4 rounded-lg p-1.5 text-slate-400 hover:bg-slate-100">
           <X className="h-5 w-5" />
         </button>
-        <SidebarContent role={role} name={name} locale={locale} dict={dict} />
+        <SidebarContent role={role} name={name} avatarUrl={avatarUrl} locale={locale} dict={dict} />
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ export function BusinessProfileForm({ provider }: { provider: Provider }) {
     address: provider.address ?? "",
     phone: provider.phone ?? "",
     email: provider.email ?? "",
+    imageUrl: provider.imageUrl ?? "",
     priceFrom: Number(provider.priceFrom),
     isActive: provider.isActive,
   });
@@ -81,6 +82,16 @@ export function BusinessProfileForm({ provider }: { provider: Provider }) {
       <div>
         <Label>{dict.profilePage.fieldDescription}</Label>
         <Textarea rows={4} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+      </div>
+
+      <div>
+        <Label>{dict.profilePage.fieldImageUrl}</Label>
+        <Input
+          type="url"
+          value={form.imageUrl}
+          onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+          placeholder={dict.profilePage.fieldImagePlaceholder}
+        />
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
