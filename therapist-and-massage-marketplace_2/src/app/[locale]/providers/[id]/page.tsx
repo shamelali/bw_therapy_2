@@ -4,6 +4,7 @@ import { availability, providers, reviews, services, users } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { PublicNavbar } from "@/components/layout/public-navbar";
 import { BookingWidget } from "@/components/marketplace/booking-widget";
+import { ProviderImage } from "@/components/marketplace/provider-image";
 import { StaticStars } from "@/components/ui/star-rating";
 import { Badge, EmptyState } from "@/components/ui/primitives";
 import { getCurrentUser } from "@/lib/auth";
@@ -51,26 +52,38 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
 
       <div className="bg-gradient-to-br from-teal-600 to-emerald-700 py-10 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <Badge className="bg-white/15 text-white">{dict.providerTypes[provider.type]}</Badge>
-              <h1 className="mt-3 text-3xl font-bold sm:text-4xl">{provider.businessName}</h1>
-              <p className="mt-2 max-w-2xl text-teal-50">{provider.tagline}</p>
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-teal-50">
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4" /> {provider.address ? `${provider.address}, ` : ""}
-                  {provider.city}
-                </span>
-                {provider.phone && (
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <div className="flex min-w-0 flex-1 items-start gap-5">
+              <ProviderImage
+                src={provider.imageUrl}
+                id={provider.id}
+                alt={provider.businessName}
+                className="hidden h-24 w-24 shrink-0 overflow-hidden rounded-2xl sm:block"
+                imgClassName="object-cover"
+                fill
+                sizes="96px"
+                priority
+              />
+              <div className="min-w-0">
+                <Badge className="bg-white/15 text-white">{dict.providerTypes[provider.type]}</Badge>
+                <h1 className="mt-3 text-3xl font-bold sm:text-4xl">{provider.businessName}</h1>
+                <p className="mt-2 max-w-2xl text-teal-50">{provider.tagline}</p>
+                <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-teal-50">
                   <span className="flex items-center gap-1.5">
-                    <Phone className="h-4 w-4" /> {provider.phone}
+                    <MapPin className="h-4 w-4" /> {provider.address ? `${provider.address}, ` : ""}
+                    {provider.city}
                   </span>
-                )}
-                {provider.email && (
-                  <span className="flex items-center gap-1.5">
-                    <Mail className="h-4 w-4" /> {provider.email}
-                  </span>
-                )}
+                  {provider.phone && (
+                    <span className="flex items-center gap-1.5">
+                      <Phone className="h-4 w-4" /> {provider.phone}
+                    </span>
+                  )}
+                  {provider.email && (
+                    <span className="flex items-center gap-1.5">
+                      <Mail className="h-4 w-4" /> {provider.email}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-3">

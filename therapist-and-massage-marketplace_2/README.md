@@ -99,11 +99,27 @@ This creates demo accounts:
 
 ### 6. Run the app
 
+**One command (quick preview)** — boots the DB, applies the schema, seeds demo data if empty,
+builds, and starts the server:
+
+```bash
+npm run preview
+```
+
+**Development mode**:
+
 ```bash
 npm run dev
 ```
 
 Open http://localhost:3000.
+
+## Profile images
+
+Provider profile images live in `public/images/providers/` and are seeded automatically.
+Providers can also set a custom image URL from the **Business Profile** dashboard, and newly
+created businesses can add one on the create-business form. If no image is set, a deterministic
+gradient placeholder is shown instead.
 
 ## Scripts
 
@@ -112,6 +128,7 @@ Open http://localhost:3000.
 | `npm run dev` | Start the dev server |
 | `npm run build` | Production build |
 | `npm run start` | Start the production server |
+| `npm run preview` | One-command boot: DB + schema + seed (if empty) + build + start |
 | `npm run lint` | Run ESLint |
 | `npm run typecheck` | Type-check with `tsc --noEmit` |
 | `npm run seed` | Seed the database with demo data |
