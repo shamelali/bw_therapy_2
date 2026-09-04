@@ -22,7 +22,7 @@ export default async function DashboardLayout({
   const dict = getDictionary(locale);
 
   return (
-    <DashboardShell role={user.role} name={user.name} locale={locale} dict={dict}>
+    <DashboardShell role={user.role} name={user.name} avatarUrl={user.avatarUrl} locale={locale} dict={dict}>
       {children}
     </DashboardShell>
   );

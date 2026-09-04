@@ -23,9 +23,17 @@ async function main() {
 
   const passwordHash = await bcrypt.hash("password123", 10);
 
+  // User avatar photos bundled in /public (initials shown when missing).
+  const userAvatars: Record<string, string> = {
+    "admin@serenity.app": "/images/avatars/admin.jpg",
+    "amelia@example.com": "/images/avatars/amelia.jpg",
+    "harmony.wellness@example.com": "/images/avatars/harmony.jpg",
+  };
+  const avatarFor = (email: string) => userAvatars[email] ?? null;
+
   const [admin] = await db
     .insert(users)
-    .values({ name: "Admin User", email: "admin@serenity.app", passwordHash, role: "admin" })
+    .values({ name: "Admin User", email: "admin@serenity.app", passwordHash, role: "admin", avatarUrl: avatarFor("admin@serenity.app") })
     .returning();
 
   const customerDefs = [
@@ -37,7 +45,7 @@ async function main() {
   ];
   const customers = [];
   for (const c of customerDefs) {
-    const [row] = await db.insert(users).values({ ...c, passwordHash, role: "customer" }).returning();
+    const [row] = await db.insert(users).values({ ...c, passwordHash, role: "customer", avatarUrl: avatarFor(c.email) }).returning();
     customers.push(row);
   }
 
@@ -219,7 +227,7 @@ async function main() {
   for (const def of providerDefs) {
     const [owner] = await db
       .insert(users)
-      .values({ name: def.ownerName, email: def.ownerEmail, passwordHash, role: "provider", phone: def.phone })
+      .values({ name: def.ownerName, email: def.ownerEmail, passwordHash, role: "provider", phone: def.phone, avatarUrl: avatarFor(def.ownerEmail) })
       .returning();
 
     const [provider] = await db

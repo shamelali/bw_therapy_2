@@ -293,6 +293,8 @@ const en = {
     phonePlaceholder: "(555) 123-4567",
     toastAccountUpdated: "Profile updated",
     toastAccountError: "Unable to update account",
+    fieldAvatarUrl: "Profile photo URL",
+    fieldAvatarPlaceholder: "https://example.com/me.jpg (optional)",
     createBusinessNamePlaceholder: "Harmony Wellness Spa",
     createCityPlaceholder: "Austin",
     createBusinessButton: "Create business profile",

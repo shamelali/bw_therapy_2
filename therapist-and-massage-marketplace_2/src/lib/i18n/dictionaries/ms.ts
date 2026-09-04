@@ -295,6 +295,8 @@ const ms: Dictionary = {
     phonePlaceholder: "(012) 345-6789",
     toastAccountUpdated: "Profil dikemas kini",
     toastAccountError: "Tidak dapat mengemas kini akaun",
+    fieldAvatarUrl: "URL foto profil",
+    fieldAvatarPlaceholder: "https://contoh.com/saya.jpg (pilihan)",
     createBusinessNamePlaceholder: "Harmony Wellness Spa",
     createCityPlaceholder: "Kuala Lumpur",
     createBusinessButton: "Cipta profil perniagaan",

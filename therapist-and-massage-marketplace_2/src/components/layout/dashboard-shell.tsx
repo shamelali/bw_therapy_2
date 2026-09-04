@@ -9,12 +9,14 @@ import type { Dictionary } from "@/lib/i18n/dictionaries/en";
 export function DashboardShell({
   role,
   name,
+  avatarUrl,
   locale,
   dict,
   children,
 }: {
   role: string;
   name: string;
+  avatarUrl?: string | null;
   locale: Locale;
   dict: Dictionary;
   children: ReactNode;
@@ -25,11 +27,11 @@ export function DashboardShell({
     <div className="flex min-h-screen bg-slate-50">
       <aside className="hidden w-64 shrink-0 border-r border-slate-200 bg-white lg:block">
         <div className="fixed h-screen w-64">
-          <SidebarContent role={role} name={name} locale={locale} dict={dict} />
+          <SidebarContent role={role} name={name} avatarUrl={avatarUrl} locale={locale} dict={dict} />
         </div>
       </aside>
 
-      <MobileSidebar role={role} name={name} locale={locale} dict={dict} open={open} onClose={() => setOpen(false)} />
+      <MobileSidebar role={role} name={name} avatarUrl={avatarUrl} locale={locale} dict={dict} open={open} onClose={() => setOpen(false)} />
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-slate-200 bg-white/90 px-4 py-3 backdrop-blur lg:hidden">
