@@ -3,9 +3,10 @@ import { Pool } from "pg";
 
 const databaseUrl = process.env.DATABASE_URL;
 
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL is required");
-}
+// Creating a Pool does not connect to PostgreSQL. Keep module evaluation safe during
+// `next build`, where route handlers can be imported without runtime environment
+// variables. Database-backed requests still require DATABASE_URL at runtime; without
+// it, pg will report the connection failure when a query is attempted.
 
 const globalForDb = globalThis as typeof globalThis & {
   __arenaNextJsPostgresqlPool?: Pool;
