@@ -14,6 +14,7 @@ export function SearchFilters({ cities }: { cities: string[] }) {
   const [q, setQ] = useState(searchParams.get("q") ?? "");
   const [city, setCity] = useState(searchParams.get("city") ?? "all");
   const [type, setType] = useState(searchParams.get("type") ?? "all");
+  const [state, setState] = useState(searchParams.get("state") ?? "all");
   const [isPending, startTransition] = useTransition();
 
   function applyFilters(e?: React.FormEvent) {
@@ -22,6 +23,7 @@ export function SearchFilters({ cities }: { cities: string[] }) {
     if (q) params.set("q", q);
     if (city !== "all") params.set("city", city);
     if (type !== "all") params.set("type", type);
+    if (state !== "all") params.set("state", state);
     startTransition(() => {
       router.push(`${buildHref("/")}?${params.toString()}`);
     });
@@ -60,6 +62,17 @@ export function SearchFilters({ cities }: { cities: string[] }) {
         <Select value={type} onChange={(e) => setType(e.target.value)}>
           <option value="all">{dict.search.allTypes}</option>
           {Object.entries(dict.providerTypes).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </Select>
+      </div>
+      <div className="sm:w-52">
+        <label className="mb-1.5 block text-xs font-medium text-slate-500">{dict.search.stateLabel}</label>
+        <Select value={state} onChange={(e) => setState(e.target.value)}>
+          <option value="all">{dict.search.allStates}</option>
+          {Object.entries(dict.states).map(([value, label]) => (
             <option key={value} value={value}>
               {label}
             </option>

@@ -18,7 +18,7 @@ export default async function HomePage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ q?: string; city?: string; type?: string }>;
+  searchParams: Promise<{ q?: string; city?: string; type?: string; state?: string }>;
 }) {
   const { locale: rawLocale } = await params;
   if (!isLocale(rawLocale)) notFound();
@@ -29,6 +29,7 @@ export default async function HomePage({
   const conditions = [eq(providers.isActive, true)];
   if (searchParamsResolved.city && searchParamsResolved.city !== "all") conditions.push(eq(providers.city, searchParamsResolved.city));
   if (searchParamsResolved.type && searchParamsResolved.type !== "all") conditions.push(eq(providers.type, searchParamsResolved.type as any));
+  if (searchParamsResolved.state && searchParamsResolved.state !== "all") conditions.push(eq(providers.state, searchParamsResolved.state));
   if (searchParamsResolved.q) {
     conditions.push(
       or(ilike(providers.businessName, `%${searchParamsResolved.q}%`), ilike(providers.description, `%${searchParamsResolved.q}%`))!,

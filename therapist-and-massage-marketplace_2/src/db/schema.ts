@@ -52,6 +52,7 @@ export const providers = pgTable("providers", {
   tagline: text("tagline"),
   description: text("description"),
   city: text("city").notNull(),
+  state: text("state"),
   address: text("address"),
   phone: text("phone"),
   email: text("email"),
