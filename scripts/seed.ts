@@ -325,7 +325,7 @@ async function main() {
   for (const { provider } of createdProviders) {
     const providerReviews = await db.select().from(reviews).where(eq(reviews.providerId, provider.id));
     if (providerReviews.length > 0) {
-      const avg = providerReviews.reduce((sum, r) => sum + r.rating, 0) / providerReviews.length;
+      const avg = providerReviews.reduce((sum: number, r: any) => sum + r.rating, 0) / providerReviews.length;
       await db
         .update(providers)
         .set({ rating: avg.toFixed(2), reviewCount: providerReviews.length })
@@ -347,5 +347,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await pool.end();
+    if (pool) await pool.end();
   });
