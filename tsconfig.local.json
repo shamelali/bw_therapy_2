@@ -1,0 +1,5 @@
+{
+  "compilerOptions": {
+    "exclude": ["therapist-and-massage-marketplace_2/*"]
+  }
+}
